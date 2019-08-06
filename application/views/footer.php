@@ -1,58 +1,57 @@
-<?php 
-if($this->uri->segment(3) != 'ph'){
-if($this->config->item('mathjax')){
-?><script type="text/javascript"
+<?php
+if ($this->uri->segment(3) != 'ph') {
+	if ($this->config->item('mathjax')) {
+		?><script type="text/javascript"
      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
-  <?php 
-  }
-  ?>
-  
+  <?php
+}
+	?>
+
   </div>
-  
-  
-<center><?php 
-if($this->uri->segment(2) != 'attempt'  && $this->uri->segment(1) != 'install'){
-	$this->db->where("add_status","Active");
-	$this->db->where("position","Bottom");
-	$query=$this->db->get('savsoft_add');
-	if($query->num_rows()==1){
-	$ad=$query->row_array();
-	if($ad['advertisement_code'] != ""){
-	echo $ad['advertisement_code'];
-	}else if($ad['banner']!=''){ ?><a href="<?php echo $ad['banner_link'];?>" target="new_add"><img src="<?php echo base_url('upload/'.$ad['banner']);?>" class="img-responsive"  ></a> <?php    
-	
+
+
+<center><?php
+if ($this->uri->segment(2) != 'attempt' && $this->uri->segment(1) != 'install') {
+		$this->db->where("add_status", "Active");
+		$this->db->where("position", "Bottom");
+		$query = $this->db->get('savsoft_add');
+		if ($query->num_rows() == 1) {
+			$ad = $query->row_array();
+			if ($ad['advertisement_code'] != "") {
+				echo $ad['advertisement_code'];
+			} else if ($ad['banner'] != '') {
+				?><a href="<?php echo $ad['banner_link']; ?>" target="new_add"><img src="<?php echo base_url('upload/' . $ad['banner']); ?>" class="img-responsive"  ></a> <?php
+
+			}
+		}
 	}
-	}
-	}
-	
-	
-?></center>
+
+	?></center>
 
 
 <?php
-$during_quiz="";
-if($this->uri->segment(2) == 'attempt'){
-	$this->db->where("add_status","Active");
-	$this->db->where("position","During_Quiz");
-	$query=$this->db->get('savsoft_add');
-	if($query->num_rows()==1){
-	$ad=$query->row_array();
-	if($ad['advertisement_code'] != ""){
-	$during_quiz=$ad['advertisement_code'];
-	}else if($ad['banner']!=''){ 
-	$during_quiz="<a href='".$ad['banner_link']."' target='new_add'><img src='".base_url('upload/'.$ad['banner'])."' class='img-responsive'  ></a>";
+$during_quiz = "";
+	if ($this->uri->segment(2) == 'attempt') {
+		$this->db->where("add_status", "Active");
+		$this->db->where("position", "During_Quiz");
+		$query = $this->db->get('savsoft_add');
+		if ($query->num_rows() == 1) {
+			$ad = $query->row_array();
+			if ($ad['advertisement_code'] != "") {
+				$during_quiz = $ad['advertisement_code'];
+			} else if ($ad['banner'] != '') {
+				$during_quiz = "<a href='" . $ad['banner_link'] . "' target='new_add'><img src='" . base_url('upload/' . $ad['banner']) . "' class='img-responsive'  ></a>";
+			}
+		}
 	}
-	}
-	}
-	
- 
-if($during_quiz != ""){
-?>
+
+	if ($during_quiz != "") {
+		?>
 <script>
 setTimeout(function(){
 showadvertisement();
-},<?php echo ($this->config->item('showadvertisement_after')*1000);?>);
+},<?php echo ($this->config->item('showadvertisement_after') * 1000); ?>);
 
 
 function showadvertisement(){
@@ -62,7 +61,7 @@ $('#advertisement').css('display','block');
 setTimeout(function(){
 $('#advertisement').css('display','none');
 $('#advertisement_bg').css('display','none');
-},<?php echo $this->config->item('showadvertisement_sec')*1000;?>);
+},<?php echo $this->config->item('showadvertisement_sec') * 1000; ?>);
 
 }
 
@@ -73,47 +72,43 @@ $('#advertisement_bg').css('display','none');
 <div style="display:none;width:100%;height:90%;background:transparent;position:fixed;z-index:1800;top:0px;right:0px;padding-top:10%;color:#ffffff;" id="advertisement" >
 
 <center>
-<label>Advertisement will close in <?php echo $this->config->item('showadvertisement_sec');?> Seconds...</label>
-<?php echo $during_quiz;?></center></div>
+<label>Advertisement will close in <?php echo $this->config->item('showadvertisement_sec'); ?> Seconds...</label>
+<?php echo $during_quiz; ?></center></div>
 
 <?php
-}	
+}
 	?>
-	 
-<div class="container" style="text-align:right;">
-Powered by <a href="https://savsoftquiz.com">Savsoft Quiz</a>
+
 </div>
-</div>	   
-		
 
-<?php 
-if($this->config->item('tinymce')){
-					if($this->uri->segment(2)!='attempt'){
-					if($this->uri->segment(2)!='view_result'){
 
-					if($this->uri->segment(2)!='config'){
-					if($this->uri->segment(2)!='css'){
-					if($this->uri->segment(2)!='edit_advertisment'){
+<?php
+if ($this->config->item('tinymce')) {
+		if ($this->uri->segment(2) != 'attempt') {
+			if ($this->uri->segment(2) != 'view_result') {
 
-	
-	?>
-	<script type="text/javascript" src="<?php echo base_url();?>editor/tinymce.min.js"></script>
-	 
- <?php 
- if($this->uri->segment(2)=='edit_quiz' || ($this->uri->segment(2)=='add_new' && $this->uri->segment(1)=='quiz')){
-?>
+				if ($this->uri->segment(2) != 'config') {
+					if ($this->uri->segment(2) != 'css') {
+						if ($this->uri->segment(2) != 'edit_advertisment') {
+
+							?>
+	<script type="text/javascript" src="<?php echo base_url(); ?>editor/tinymce.min.js"></script>
+
+ <?php
+if ($this->uri->segment(2) == 'edit_quiz' || ($this->uri->segment(2) == 'add_new' && $this->uri->segment(1) == 'quiz')) {
+								?>
 <script type="text/javascript">
   tinymce.init({
   selector: '.tinymce_textarea',
   height: 100,
   theme: 'modern',
   plugins: [
-    'advlist autolink lists link image jbimages <?php if($this->config->item('eqneditor')){ ?>eqneditor<?php } ?> charmap print preview hr anchor pagebreak',
+    'advlist autolink lists link image jbimages <?php if ($this->config->item('eqneditor')) {?>eqneditor<?php }?> charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
     'insertdatetime media nonbreaking save table contextmenu directionality',
     'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
   ],
-  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  jbimages | <?php if($this->config->item('eqneditor')){ ?>eqneditor<?php } ?>',
+  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  jbimages | <?php if ($this->config->item('eqneditor')) {?>eqneditor<?php }?>',
   toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
   image_advtab: true,
   templates: [
@@ -125,14 +120,14 @@ if($this->config->item('tinymce')){
     '//www.tinymce.com/css/codepen.min.css'
   ]
  });
- 
+
  </script>
 
- 
 
-<?php 
- }else{
-?>
+
+<?php
+} else {
+								?>
 
 	<script type="text/javascript">
   tinymce.init({
@@ -143,12 +138,12 @@ if($this->config->item('tinymce')){
   height: 100,
   theme: 'modern',
   plugins: [
-    'advlist autolink lists link image jbimages <?php if($this->config->item('eqneditor')){ ?>eqneditor<?php } ?> <?php if($this->config->item('wiris')){ ?>tiny_mce_wiris<?php } ?>  charmap print preview hr anchor pagebreak',
+    'advlist autolink lists link image jbimages <?php if ($this->config->item('eqneditor')) {?>eqneditor<?php }?> <?php if ($this->config->item('wiris')) {?>tiny_mce_wiris<?php }?>  charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
     'insertdatetime media nonbreaking save table contextmenu directionality',
     'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
   ],
-  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  jbimages | <?php if($this->config->item('eqneditor')){ ?>eqneditor<?php } ?> <?php if($this->config->item('wiris')){ ?> | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry | tiny_mce_wiris_CAS <?php } ?>',
+  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  jbimages | <?php if ($this->config->item('eqneditor')) {?>eqneditor<?php }?> <?php if ($this->config->item('wiris')) {?> | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry | tiny_mce_wiris_CAS <?php }?>',
   toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
   image_advtab: true,
   templates: [
@@ -160,35 +155,35 @@ if($this->config->item('tinymce')){
     '//www.tinymce.com/css/codepen.min.css'
   ]
  });
- 
+
  </script>
 
-<?php 
- }
- ?>
- 
- 
+<?php
+}
+							?>
 
-	
-	<?php 
-	}
-						}
+
+
+
+	<?php
+}
 					}
+				}
 			}
 		}
 	}
-?>
+	?>
 
 
 
 
 
 
- 
+
 
 <div id="messages"></div>
 
- 
+
 
 
 
@@ -203,12 +198,12 @@ if($this->config->item('tinymce')){
 <script>
 var showdupli=1;
 function canceldupli(){
-$('#duplicate_question').css('display','none');	
+$('#duplicate_question').css('display','none');
 showdupli=0;
 }
-		
+
 function myCustomOnChangeHandler(inst) {
-         
+
       tinyMCE.triggerSave();
        var question=$('#question').val();
 if(question != '' && showdupli == 1){
@@ -220,26 +215,26 @@ $('#duplicate_question').css('display','block');
 		 data : formData,
 		url: base_url + "index.php/duplicate_question/index",
 		success: function(data){
-		 
+
 		if(data.trim() != ''){
 	 	$('#duplicate_question2').html(data);
 	 	}else{
-	 	 
+
 	 	$('#duplicate_question').css('display','none');
 	 	}
 			},
 		error: function(xhr,status,strErr){
 			//alert(status);
-			}	
+			}
 		});
 		}else{
-$('#duplicate_question').css('display','none');		
+$('#duplicate_question').css('display','none');
 		}
 }
 
- 		
+
 </script>
 <!-- dupllicate question check ends -->
- <?php } ?>
+ <?php }?>
 </body>
 </html>
